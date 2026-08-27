@@ -96,4 +96,17 @@ export const projects: Project[] = [
     status: 'Repositorio público',
     visualLabel: 'FINANZAS\\nPERSONALES',
   },
+  {
+    name: 'Flores Amarillas',
+    description:
+      'Experiencia web animada para regalar flores amarillas, con ilustraciones, música y una presentación interactiva.',
+    technologies: ['HTML', 'CSS', 'JavaScript'],
+    image: '/images/projects/flores-amarillas.png',
+    imageWidth: 1453,
+    imageHeight: 851,
+    imageBackground: '#031110',
+    github: 'https://github.com/Joacocap11/Joacocap11.github.io/tree/8db7a78',
+    status: 'Repositorio público',
+    visualLabel: 'FLORES\\nAMARILLAS',
+  },
 ];
