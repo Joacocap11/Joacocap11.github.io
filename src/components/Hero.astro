@@ -1,0 +1,33 @@
+---
+import { personal } from '../data/personal';
+---
+
+<section id="inicio" class="hero" aria-labelledby="hero-title">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow"><span></span>{personal.eyebrow}</p>
+      <h1 id="hero-title"><span class="hero-greeting">Hola, soy</span><strong>{personal.name}</strong></h1>
+      <p class="hero-role">{personal.role}</p>
+      <p class="hero-intro">{personal.intro}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#proyectos">Ver proyectos <span aria-hidden="true">↗</span></a>
+        <a class="button button-ghost" href="#contacto">Contactarme</a>
+      </div>
+      <div class="hero-meta" aria-label="Información adicional">
+        <span><i class="status-dot" aria-hidden="true"></i>{personal.availability}</span>
+        <span>{personal.location}</span>
+      </div>
+    </div>
+    <div class="portrait-wrap" aria-label={`Retrato de ${personal.name}`}>
+      <div class="portrait-frame">
+        <img src={personal.image} alt={`Retrato profesional de ${personal.name}`} width="1086" height="1448" loading="eager" fetchpriority="high" />
+        <div class="portrait-overlay"></div>
+      </div>
+      <div class="portrait-label" aria-hidden="true"><span>01</span>{personal.role.toUpperCase()}</div>
+      <div class="orbit orbit-one" aria-hidden="true"></div>
+      <div class="orbit orbit-two" aria-hidden="true"></div>
+    </div>
+  </div>
+  <a class="scroll-cue" href="#sobre-mi" aria-label="Ir a Sobre mí"><span>SCROLL</span><i aria-hidden="true"></i></a>
+</section>

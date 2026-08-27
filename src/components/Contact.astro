@@ -1,0 +1,17 @@
+---
+import { personal } from '../data/personal';
+---
+
+<section id="contacto" class="section contact-section" aria-labelledby="contact-title" data-reveal>
+  <div class="contact-glow" aria-hidden="true"></div>
+  <div class="container contact-inner">
+    <div class="section-kicker light"><span>05</span><p>Contacto</p></div>
+    <h2 id="contact-title">¿Construimos algo<br /><em>que valga la pena?</em></h2>
+    <p>Si tenés una idea, un desafío técnico o una oportunidad en mente, conversemos.</p>
+    <div class="contact-links">
+      {personal.email ? <a class="button button-light" href={`mailto:${personal.email}`}>Enviar un email ↗</a> : <span class="button button-disabled" aria-disabled="true">Email · pendiente</span>}
+      <a class="button button-outline-light" href={personal.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+      {personal.linkedin ? <a class="button button-outline-light" href={personal.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a> : <span class="button button-disabled-light" aria-disabled="true">LinkedIn · pendiente</span>}
+    </div>
+  </div>
+</section>

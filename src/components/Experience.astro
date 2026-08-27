@@ -1,0 +1,46 @@
+---
+import { timeline } from '../data/experience';
+---
+
+<section id="experiencia" class="section experience-section" aria-labelledby="experience-title" data-reveal>
+  <div class="container experience-grid">
+    <div class="experience-heading">
+      <div class="section-kicker"><span>04</span><p>Recorrido</p></div>
+      <h2 id="experience-title">Experiencia &<br /><em>formación.</em></h2>
+      <p>Un recorrido en constante construcción, guiado por la curiosidad y el aprendizaje práctico.</p>
+    </div>
+    <ol class="timeline">
+      {timeline.map((item, index) => (
+        <li>
+          <span class="timeline-index">{String(index + 1).padStart(2, '0')}</span>
+          <div class="timeline-card">
+            <div class="timeline-meta"><span>{item.type}</span><time>{item.period}</time></div>
+            <div class="timeline-identity">
+              <div class:list={['timeline-logo', { 'is-initials': !item.logo }] }>
+                {item.logo
+                  ? <img src={item.logo} alt={item.logoAlt} width="200" height="200" loading="lazy" />
+                  : <span aria-hidden="true">{item.initials}</span>}
+              </div>
+              <div>
+                <h3>{item.title}</h3>
+                <h4>{item.organization}</h4>
+                {item.location && <p class="timeline-location">{item.location}</p>}
+              </div>
+            </div>
+            {item.description && <p class="timeline-description">{item.description}</p>}
+            {item.skills && (
+              <ul class="timeline-skills" aria-label="Aptitudes relacionadas">
+                {item.skills.map((skill) => <li>{skill}</li>)}
+              </ul>
+            )}
+            {item.project && (
+              <a class="timeline-project" href={item.project.href} target="_blank" rel="noreferrer">
+                {item.project.label}<span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

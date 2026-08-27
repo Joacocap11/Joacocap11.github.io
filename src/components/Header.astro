@@ -1,0 +1,17 @@
+---
+import { navigation, personal } from '../data/personal';
+---
+
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href="#inicio" aria-label={`${personal.name}, ir al inicio`}>
+      <span>{personal.initials}</span><i aria-hidden="true"></i>
+    </a>
+    <button class="menu-button" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-nav" data-menu-button>
+      <span></span><span></span>
+    </button>
+    <nav id="main-nav" class="main-nav" aria-label="Navegación principal" data-nav>
+      {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+  </div>
+</header>

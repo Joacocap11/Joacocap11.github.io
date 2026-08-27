@@ -1,0 +1,116 @@
+---
+import { projects } from '../data/projects';
+
+const featuredProjects = projects.filter((project) => project.featured);
+const otherProjects = projects.filter((project) => !project.featured);
+---
+
+<section id="proyectos" class="section projects-section" aria-labelledby="projects-title" data-reveal>
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <div class="section-kicker"><span>03</span><p>Trabajo seleccionado</p></div>
+        <h2 id="projects-title">Proyectos que<br /><em>resuelven.</em></h2>
+      </div>
+      <p>Una selección manual de mis trabajos destacados. El resto de mis proyectos públicos también está disponible para explorar.</p>
+    </div>
+
+    <div class="projects-list">
+      {featuredProjects.map((project, index) => (
+        <article class="project-card featured">
+          <div class="project-visual">
+            {project.image ? (
+              <div class="project-shot" style={`--shot-background: ${project.imageBackground ?? '#111820'}`}>
+                <img
+                  src={project.image}
+                  alt={`Captura del proyecto ${project.name}`}
+                  width={project.imageWidth}
+                  height={project.imageHeight}
+                  loading="lazy"
+                />
+              </div>
+            ) : (
+              <div class="project-placeholder" aria-label="Vista gráfica del proyecto">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <p>{project.visualLabel ?? 'PROJECT\\nPREVIEW'}</p>
+                <div aria-hidden="true"></div>
+              </div>
+            )}
+          </div>
+          <div class="project-content">
+            <div class="project-topline"><span>{project.status}</span><small>Destacado</small></div>
+            <h3>{project.name}</h3>
+            <p>{project.description}</p>
+            <ul>{project.technologies.map((tech) => <li>{tech}</li>)}</ul>
+            <div class="project-links">
+              {project.github && <a href={project.github} target="_blank" rel="noreferrer">Ver en GitHub ↗</a>}
+              {project.demo && <a href={project.demo} target="_blank" rel="noreferrer">Ver demo ↗</a>}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="projects-more">
+      <button id="projects-more-button" class="button projects-more-button" type="button" aria-haspopup="dialog" aria-controls="projects-dialog">
+        Ver más
+        <span aria-hidden="true">↗</span>
+      </button>
+      <p>{otherProjects.length} proyectos públicos adicionales</p>
+    </div>
+  </div>
+</section>
+
+<dialog id="projects-dialog" class="projects-dialog" aria-labelledby="projects-dialog-title">
+  <div class="projects-dialog-shell">
+    <header class="projects-dialog-header">
+      <div>
+        <span>Archivo de proyectos</span>
+        <h2 id="projects-dialog-title">Más proyectos</h2>
+      </div>
+      <button class="projects-dialog-close" type="button" aria-label="Cerrar ventana de proyectos">×</button>
+    </header>
+
+    <div class="projects-dialog-grid">
+      {otherProjects.map((project, index) => (
+        <article class="project-mini-card">
+          <div class="project-mini-visual" style={project.image ? `--shot-background: ${project.imageBackground ?? '#111820'}` : undefined}>
+            {project.image ? (
+              <img
+                src={project.image}
+                alt={`Captura del proyecto ${project.name}`}
+                width={project.imageWidth}
+                height={project.imageHeight}
+                loading="lazy"
+              />
+            ) : (
+              <div class="project-mini-placeholder">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <strong>{project.visualLabel ?? project.name}</strong>
+              </div>
+            )}
+          </div>
+          <div class="project-mini-content">
+            <span>{project.status}</span>
+            <h3>{project.name}</h3>
+            <p>{project.description}</p>
+            <ul>{project.technologies.map((tech) => <li>{tech}</li>)}</ul>
+            {project.github && <a href={project.github} target="_blank" rel="noreferrer">Ver en GitHub ↗</a>}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const openButton = document.querySelector<HTMLButtonElement>('#projects-more-button');
+  const dialog = document.querySelector<HTMLDialogElement>('#projects-dialog');
+  const closeButton = dialog?.querySelector<HTMLButtonElement>('.projects-dialog-close');
+
+  openButton?.addEventListener('click', () => dialog?.showModal());
+  closeButton?.addEventListener('click', () => dialog?.close());
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+</script>

@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+import { personal } from '../data/personal';
+
+interface Props {
+  title: string;
+  tabTitle?: string;
+  description: string;
+}
+
+const { title, tabTitle, description } = Astro.props;
+const canonical = personal.canonicalUrl || Astro.url.origin;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0b0e12" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${Astro.url.origin}${personal.image}`} />
+    <meta property="og:locale" content="es_UY" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <title>{tabTitle ?? title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <slot />
+    <script is:inline>
+      const header = document.querySelector('[data-header]');
+      const menuButton = document.querySelector('[data-menu-button]');
+      const nav = document.querySelector('[data-nav]');
+
+      const closeMenu = () => {
+        menuButton?.setAttribute('aria-expanded', 'false');
+        nav?.classList.remove('is-open');
+        document.body.classList.remove('menu-open');
+      };
+
+      menuButton?.addEventListener('click', () => {
+        const open = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', String(!open));
+        nav?.classList.toggle('is-open', !open);
+        document.body.classList.toggle('menu-open', !open);
+      });
+
+      nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+      window.addEventListener('keydown', (event) => event.key === 'Escape' && closeMenu());
+      window.addEventListener('scroll', () => header?.classList.toggle('is-scrolled', window.scrollY > 20), { passive: true });
+
+      const sections = document.querySelectorAll('[data-reveal]');
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        sections.forEach((section) => observer.observe(section));
+      } else {
+        sections.forEach((section) => section.classList.add('is-visible'));
+      }
+    </script>
+  </body>
+</html>

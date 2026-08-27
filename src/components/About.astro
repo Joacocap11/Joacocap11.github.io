@@ -1,0 +1,18 @@
+---
+import { personal } from '../data/personal';
+---
+
+<section id="sobre-mi" class="section about" aria-labelledby="about-title" data-reveal>
+  <div class="container">
+    <div class="section-kicker"><span>01</span><p>Sobre mí</p></div>
+    <div class="about-grid">
+      <h2 id="about-title">Software con propósito,<br /><em>construido con criterio.</em></h2>
+      <div class="about-copy">
+        {personal.about.map((paragraph) => <p>{paragraph}</p>)}
+        <div class="principles">
+          <span>Claridad</span><span>Calidad</span><span>Evolución</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

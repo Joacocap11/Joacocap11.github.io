@@ -1,0 +1,34 @@
+---
+import { skillGroups } from '../data/skills';
+---
+
+<section id="skills" class="section skills-section" aria-labelledby="skills-title" data-reveal>
+  <div class="container">
+    <div class="section-heading">
+      <div><div class="section-kicker"><span>02</span><p>Stack</p></div><h2 id="skills-title">Tecnologías &<br /><em>herramientas.</em></h2></div>
+      <p>Una base versátil para desarrollar, automatizar y llevar soluciones desde la idea hasta un producto funcional.</p>
+    </div>
+    <div class="skills-grid">
+      {skillGroups.map((group) => (
+        <article class="skill-card">
+          <div class="skill-card-head"><span>{group.code}</span><i aria-hidden="true">＋</i></div>
+          <h3>{group.title}</h3>
+          <ul>{group.skills.map((skill) => (
+            <li style={`--brand-color: ${skill.icon ? `#${skill.icon.hex}` : skill.brand}`}>
+              {skill.icon ? (
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d={skill.icon.path}></path>
+                </svg>
+              ) : skill.image ? (
+                <span class="skill-image-icon" style={`--icon-image: url('${skill.image}')`} aria-hidden="true"></span>
+              ) : (
+                <span class="skill-monogram-icon" aria-hidden="true">{skill.monogram}</span>
+              )}
+              <span>{skill.name}</span>
+            </li>
+          ))}</ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
